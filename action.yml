@@ -26,5 +26,6 @@ runs:
       with:
         version: ${{inputs.pnpm_version}}
     - run: pnpm install --frozen-lockfile --strict-peer-dependencies
+      shell: bash
       env:
         NODE_AUTH_TOKEN: ${{inputs.pnpm_version}}
