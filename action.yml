@@ -1,0 +1,30 @@
+name: "Setup pnpm/node/cache and install dependencies"
+
+inputs:
+  node_version:
+    required: true
+  pnpm_version:
+    required: true
+  npm_auth_token:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+    - uses: actions/cache@v3
+      with:
+        path: ~/.pnpm-store
+        key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{inputs.node_version}}
+        registry-url: 'https://registry.npmjs.org'
+    - uses: pnpm/action-setup@v2
+      with:
+        version: ${{inputs.pnpm_version}}
+    - run: pnpm install --frozen-lockfile --strict-peer-dependencies
+      env:
+        NODE_AUTH_TOKEN: ${{inputs.pnpm_version}}

@@ -1,0 +1,1 @@
+echo "Seting up PNPM Version and Cache, Node version and installing dependencies"
