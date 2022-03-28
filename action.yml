@@ -21,11 +21,11 @@ runs:
     - uses: actions/setup-node@v3
       with:
         node-version: ${{inputs.node_version}}
-        registry-url: 'https://registry.npmjs.org'
+        registry-url: "https://registry.npmjs.org"
     - uses: pnpm/action-setup@v2
       with:
         version: ${{inputs.pnpm_version}}
     - run: pnpm install --frozen-lockfile --strict-peer-dependencies
       shell: bash
       env:
-        NODE_AUTH_TOKEN: ${{inputs.pnpm_version}}
+        NODE_AUTH_TOKEN: ${{inputs.npm_auth_token}}
