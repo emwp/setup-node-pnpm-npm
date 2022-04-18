@@ -7,6 +7,8 @@ inputs:
     required: true
   npm_auth_token:
     required: true
+  gh_token:
+    required: true
 
 runs:
   using: "composite"
@@ -14,6 +16,7 @@ runs:
     - uses: actions/checkout@v3
     - uses: actions/cache@v3
       with:
+        token: ${{inputs.gh_token}}
         path: ~/.pnpm-store
         key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
